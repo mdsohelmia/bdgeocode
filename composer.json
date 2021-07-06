@@ -1,0 +1,30 @@
+{
+    "name": "sohel1999/bdgeocode",
+    "type": "laravel",
+    "description": "8 Division, 64 District, 491 Thana and 2350 Union fully mapped laravel package.",
+    "keywords": ["laravel", "bangladesh", "geocode"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sohel Mia",
+            "email": "sohelcse1999@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "staudenmeir/eloquent-has-many-deep": "^1.7",
+        "staudenmeir/belongs-to-through": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sohel1999\\Bdgeocode\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sohel1999\\Bdgeocode\\BdgeocodeServiceProvider"
+            ]
+        }
+    }
+}
