@@ -12,7 +12,7 @@ class CreateBdgeocodeTables extends Migration
         DB::beginTransaction();
 
         Schema::create('divisions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name')->unique();
             $table->string('bn_name')->unique();
             $table->double('lat')->nullable();
@@ -20,33 +20,32 @@ class CreateBdgeocodeTables extends Migration
         });
 
         Schema::create('districts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('division_id');
+            $table->id();
+            $table->foreignId('division_id')->constrained('divisions')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name')->unique();
             $table->string('bn_name')->unique();
+            $table->string('website')->unique();
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
-            $table->foreign('division_id')->references('id')->on('divisions') ->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('thanas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('district_id');
+            $table->id('id');
+            $table->foreignId('district_id')->constrained('districts')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
             $table->string('bn_name');
-             $table->double('lat')->nullable();
-             $table->double('lng')->nullable();
-            $table->foreign('district_id')->references('id')->on('districts') ->onUpdate('cascade')->onDelete('cascade');
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
         });
 
         Schema::create('unions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('thana_id');
+            $table->id('id');
+            $table->foreignId('thana_id')->constrained('thanas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
-             $table->string('bn_name');
-             $table->double('lat')->nullable();
-             $table->double('lng')->nullable();
-            $table->foreign('thana_id')->references('id')->on('thanas') ->onUpdate('cascade')->onDelete('cascade');
+            $table->string('bn_name');
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
+
         });
 
         DB::commit();
